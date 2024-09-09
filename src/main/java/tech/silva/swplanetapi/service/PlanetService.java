@@ -8,7 +8,13 @@ import tech.silva.swplanetapi.repository.PlanetRepository;
 @Service
 public class PlanetService {
 
-    @Autowired
     private PlanetRepository planetRepository;
 
+    public PlanetService(PlanetRepository planetRepository) {
+        this.planetRepository = planetRepository;
+    }
+
+    public Planet create(Planet planet){
+        return planetRepository.save(planet);
+    }
 }
