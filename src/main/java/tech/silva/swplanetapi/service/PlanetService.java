@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import tech.silva.swplanetapi.entity.Planet;
 import tech.silva.swplanetapi.repository.PlanetRepository;
 
+import java.util.Optional;
+
 @Service
 public class PlanetService {
 
@@ -17,4 +19,5 @@ public class PlanetService {
     public Planet create(Planet planet){
         return planetRepository.save(planet);
     }
+
 }

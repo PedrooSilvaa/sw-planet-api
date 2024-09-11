@@ -1,5 +1,6 @@
 package tech.silva.swplanetapi.domain;
 
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,8 +11,10 @@ import tech.silva.swplanetapi.repository.PlanetRepository;
 import tech.silva.swplanetapi.service.PlanetService;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import static tech.silva.swplanetapi.common.PlanetConstants.PLANET;
+import static tech.silva.swplanetapi.common.PlanetConstants.INVALID_PLANET;
 
 @ExtendWith(MockitoExtension.class)
 public class PlanetServiceTest {
@@ -35,4 +38,10 @@ public class PlanetServiceTest {
         assertThat(sut).isEqualTo(PLANET);
     }
 
+    @Test
+    public void createPlanet_WithInvalidData_ThrowsWxception(){
+        when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
+    }
 }
